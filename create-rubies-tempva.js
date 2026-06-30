@@ -10,47 +10,41 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({
-      success:false,
-      message:"Method not allowed"
+      success: false,
+      message: "Method not allowed"
     });
   }
 
-  try{
+  try {
 
     const {
       firstName,
       lastName,
-      phone,
-      bvn
+      registrationNumber
     } = req.body;
 
     const response = await fetch(
-      "https://mevonpay.com.ng/V1/createrubies",
+      "https://mevonpay.com.ng/V1/createtempva",
       {
-
-        method:"POST",
-
-        headers:{
-          Authorization:process.env.MEVON_SECRET_KEY,
-          "Content-Type":"application/json"
+        method: "POST",
+        headers: {
+          Authorization: process.env.MEVON_SECRET_KEY,
+          "Content-Type": "application/json"
         },
+        body: JSON.stringify({
 
-        body:JSON.stringify({
+          type: "rubies",
 
-          action:"initiate",
+          fname: firstName,
 
-          fname:firstName,
+          lname: lastName,
 
-          lname:lastName,
+          registration_number: registrationNumber
 
-          gender:"male",
-
-          phone,
-
-          bvn
+          // amount: amount,
+          // currency: "NGN"
 
         })
-
       }
     );
 
@@ -58,34 +52,27 @@ export default async function handler(req, res) {
 
     let data;
 
-    try{
+    try {
 
       data = JSON.parse(text.trim());
 
-    }catch{
+    } catch {
 
       return res.status(500).json({
-
-        success:false,
-
-        message:"MevonPay returned non-JSON response.",
-
-        response:text
-
+        success: false,
+        message: "Non JSON response",
+        response: text
       });
 
     }
 
     return res.status(response.ok ? 200 : 400).json(data);
 
-  }catch(err){
+  } catch (err) {
 
     return res.status(500).json({
-
-      success:false,
-
-      message:err.message
-
+      success: false,
+      message: err.message
     });
 
   }
