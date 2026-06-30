@@ -19,9 +19,10 @@ export default async function handler(req, res) {
 
     const {
       firstName,
-      lastName,
-      registrationNumber
+      lastName
     } = req.body;
+
+    const bvn = process.env.REGISTRATION_NUMBER;
 
     const response = await fetch(
       "https://mevonpay.com.ng/V1/createtempva",
@@ -39,8 +40,7 @@ export default async function handler(req, res) {
 
           lname: lastName,
 
-          
-          const bvn = process.env.REGISTRATION_NUMBER;
+          registration_number: bvn
 
           // amount: amount,
           // currency: "NGN"
