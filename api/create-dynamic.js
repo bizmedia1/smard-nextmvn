@@ -48,7 +48,8 @@ let data;
 
 try{
 
-data = JSON.parse(text);
+data = JSON.parse(text.trim());
+
 
 }catch{
 
