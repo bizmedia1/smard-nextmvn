@@ -40,7 +40,29 @@ export default async function handler(req, res) {
       }
     );
 
-    const data = await response.json();
+    const text = await response.text();
+
+console.log(text);
+
+let data;
+
+try{
+
+data = JSON.parse(text);
+
+}catch{
+
+return res.status(500).json({
+
+success:false,
+
+message:"MevonPay returned non-JSON response.",
+
+response:text
+
+});
+
+}
 
     if(!response.ok || !data.status){
 
