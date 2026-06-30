@@ -11,15 +11,15 @@ if (req.method !== "POST") {
 
   const { event, data } = req.body;
 
-  if (event === "funding.success" && data?.reference) {
+  if (event === "funding.success" && data?.account_number) {
 
-    payments[data.reference] = {
-      status: "paid",
-      amount: data.amount,
-      sender: data.sender,
-      bank: data.bank_name,
-      account: data.account_number
-    };
+  if (payments[data.account_number]) {
+
+    payments[data.account_number].status = "paid";
+
+    console.log("Payment marked as paid:", data.account_number);
+
+  }
 
   }
 
