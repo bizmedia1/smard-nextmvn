@@ -39,7 +39,8 @@ export default async function handler(req, res) {
 
           lname: lastName,
 
-          registration_number: registrationNumber
+          
+          const bvn = process.env.REGISTRATION_NUMBER;
 
           // amount: amount,
           // currency: "NGN"
