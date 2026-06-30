@@ -57,9 +57,9 @@ export default async function handler(req, res) {
     try {
 
       data = JSON.parse(text.trim());
-      if (data.reference) {
+      if (data.account_number) {
 
-  payments[data.reference] = {
+  payments[data.account_number] = {
     status: "pending"
   };
 
