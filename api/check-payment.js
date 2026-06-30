@@ -2,9 +2,9 @@ import { payments } from "./store";
 
 export default async function handler(req, res) {
 
-  const { reference } = req.query;
+  const { account_number } = req.query;
 
-  if (!payments[reference]) {
+  if (!payments[account_number]) {
 
     return res.status(404).json({
       paid: false
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   return res.status(200).json({
-    paid: payments[reference].status === "paid"
+    paid: payments[account_number].status === "paid"
   });
 
 }
