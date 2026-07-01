@@ -1,4 +1,4 @@
-import { payments } from "./store";
+import { SUPABASE_URL, SUPABASE_KEY } from "./store";
 export default async function handler(req, res) {
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -62,9 +62,22 @@ console.log("MEVON RESPONSE:", data);
 
 if (data.account_number) {
 
-  payments[data.account_number] = {
-    status: "pending"
-  };
+  await fetch(`${SUPABASE_URL}/rest/v1/payments`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal"
+    },
+    body: JSON.stringify({
+      account_number: data.account_number,
+      status: "pending",
+      amount: 0,
+      sender: "",
+      bank: ""
+    })
+  });
 
 }
 
