@@ -57,14 +57,16 @@ export default async function handler(req, res) {
     try {
 
       data = JSON.parse(text.trim());
-      console.log(data);
-      if (data.account_number) {
+
+console.log("MEVON RESPONSE:", data);
+
+if (data.account_number) {
 
   payments[data.account_number] = {
     status: "pending"
   };
 
-      }
+}
 
     } catch {
 
